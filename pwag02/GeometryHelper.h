@@ -5,7 +5,6 @@
 
 namespace Geometry
 {
-	// Zadanie 2.1.1 - Modyfikacja struktury wierzcho³ka
 	struct Vertex {
 		Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 color)
 			: Position(position), Color(color) {

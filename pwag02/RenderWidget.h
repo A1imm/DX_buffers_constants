@@ -96,9 +96,7 @@ private:
 
     //Constant buffers
     void CreateConstantBuffers();
-    // Zadanie 2.2.1 - Dodanie bufora sta³ych
     Microsoft::WRL::ComPtr<ID3D12Resource> ConstantVPBufferGPU;
-    // Zadanie 2.3 - Dodanie drugiego bufora
     Microsoft::WRL::ComPtr<ID3D12Resource> ConstantWorldBufferGPU;
 
     //Shaders

@@ -338,9 +338,8 @@ void RenderWidget::CreateConstantBuffers()
 {
 	auto bufferByteSize = DirectXHelper::CalcConstantBufferByteSize(sizeof(CameraConstants));
 
-	// Zadanie 2.2.1 - Tworzenie bufora sta³ych
 	ThrowIfFailed(m_dxDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD), // dostêp z CPU
+		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 		D3D12_HEAP_FLAG_NONE,
 		&CD3DX12_RESOURCE_DESC::Buffer(bufferByteSize),
 		D3D12_RESOURCE_STATE_GENERIC_READ,
@@ -350,7 +349,6 @@ void RenderWidget::CreateConstantBuffers()
 
 	auto worldBufferSize = DirectXHelper::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 
-	// Zadanie 2.3 Tworzenie drugiego bufora stalych
 	ThrowIfFailed(m_dxDevice->CreateCommittedResource(
 		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 		D3D12_HEAP_FLAG_NONE,
@@ -365,13 +363,11 @@ void RenderWidget::CreateConstantBuffers()
 
 void RenderWidget::BuildRootSignature()
 {
-	// Zadanie 2.2.2 - Root Signature
 	// Root parameter can be a table, root descriptor or root constants.
 	CD3DX12_ROOT_PARAMETER slotRootParameter[2];
 	slotRootParameter[0].InitAsConstantBufferView(0);
-	slotRootParameter[1].InitAsConstantBufferView(1); // b1 ? cbObject (macierz œwiata)
+	slotRootParameter[1].InitAsConstantBufferView(1);
 ;
-	// TODO - Zmieñ odpowiednio parametry
 CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(
 	_countof(slotRootParameter), slotRootParameter,
 	0, nullptr,
@@ -502,7 +498,6 @@ void RenderWidget::LoadGeometry()
 
 void RenderWidget::CreateGraphicPipeline()
 {
-	// Zadanie 2.1.2 - Modyfikacja Input Layout
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout = {
 	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 	{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
@@ -543,8 +538,6 @@ void RenderWidget::UpdateWorldCBuffer()
 	ObjectConstants objectConstant;
 	XMStoreFloat4x4(&objectConstant.WorldMatrix, XMMatrixTranspose(world));
 
-	// Zadanie 2.3 - Utworzenie drugiego bufora stalych
-	//TODO: coppy objectConstant object to the world matrix constant buffer
 	void* data = nullptr;
 	ThrowIfFailed(ConstantWorldBufferGPU->Map(0, nullptr, &data));
 	memcpy(data, &objectConstant, sizeof(ObjectConstants));
@@ -572,8 +565,6 @@ void RenderWidget::UpdateViewProjectionCBuffer()
 	XMStoreFloat4x4(&cameraConstants.View, XMMatrixTranspose(view));
 	XMStoreFloat4x4(&cameraConstants.Projection, XMMatrixTranspose(proj));
 
-	// Zadanie 2.2.4 -  Zmiana zawartoœci bufora sta³ych
-	// TODO: copy objectConstant object to the world matrix constant buffer
 	void* data = nullptr;
 	ThrowIfFailed(ConstantVPBufferGPU->Map(0, nullptr, &data));
 	memcpy(data, &cameraConstants, sizeof(CameraConstants));
@@ -596,11 +587,8 @@ void RenderWidget::Draw()
 	// Set root signature
 	m_commandList->SetGraphicsRootSignature(m_rootSignature.Get());
 
-	// Zadanie 2.2.3 - Podpiêcie bufora sta³ych do potoku renderuj¹cego
-	// Setup constant buffers here - use the SetGraphicsRootConstantBufferView function to setup constant buffers
-
 	m_commandList->SetGraphicsRootConstantBufferView(
-		0, // slot 0 odpowiada b0 (w shaderze)
+		0,
 		ConstantVPBufferGPU->GetGPUVirtualAddress()
 	);
 
