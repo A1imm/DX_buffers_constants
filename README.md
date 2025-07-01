@@ -4,14 +4,14 @@ This project was developed as part of the **Graphics API Programming** course at
 
 ## Objective
 
-- Create and bind constant buffers to the DirectX 11 graphics pipeline.
+- Create and bind constant buffers to the DirectX 12 graphics pipeline.
 - Extend vertex structure to include RGB color attributes.
 - Implement basic HLSL vertex and pixel shaders using semantic bindings.
 - Enable interactive control of camera and object transformations.
 
 ## Technical Stack
 
-- **API**: DirectX 11
+- **API**: DirectX 12
 - **Language**: C++17
 - **Shaders**: HLSL (Shader Model 5.0+)
 - **IDE**: Visual Studio 2019+
@@ -43,8 +43,9 @@ This project was developed as part of the **Graphics API Programming** course at
 
 ## Results
 
-![image](https://github.com/user-attachments/assets/1dbadcd9-55ae-4af1-9d78-b2ee04b388db)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1dbadcd9-55ae-4af1-9d78-b2ee04b388db" alt="Colored Cube" width="400"/>
+</p>
 
 ## Academic Context
 
